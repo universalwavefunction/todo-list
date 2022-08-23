@@ -13,17 +13,31 @@
       </div>
     </header>
     <div class="body">
-      <form id="task-form">
-        <input type="button" value="x" id="exit"><br>
+      <div id="task-form">
+        <div id="new-task-header">
+          <h3 class="header-text">Add task</h3>
+          <input type="button" value="x" id="exit">
+        </div>
         <input type="text" name="title" placeholder="Task">
-        <input type="text" name="description" placeholder="Description">
-        <input type="text" name="date" placeholder="Date">
-        <input type="text" name="duedate" placeholder="Due Date">
-        <input type="text" name="priority" placeholder="Priority">
-        <label for="completed">Completed</label>
-        <input type="checkbox" name="read" value="yes" id="completed"><br>
+        <textarea rows="3" name="description" placeholder="Description" id="description"></textarea>
+        <div class="duedate">
+          <label for="duedate">Finish by:</label>
+          <input type="date" name="duedate" placeholder="Due Date">
+        </div>
+        <div class="">
+          <label for="priority">Priority:</label>
+          <select name="priority">
+            <option value="urgent">Urgent</option>
+            <option value="somewhat-urgent">Somewhat urgent</option>
+            <option value="not-urgent">Not urgent</option>
+          </select>
+        </div>
+        <div class="completed-task">
+          <label for="completed">Completed</label>
+          <input type="checkbox" name="read" value="yes" id="completed">
+        </div>
         <input type="button" value="Add task" id="add-task">
-      </form>
+      </div>
       <div class="left-side">
         <button class="side-button" id="all">All</button>
         <button class="side-button" id="today">Today</button>

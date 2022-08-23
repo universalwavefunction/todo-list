@@ -11,8 +11,10 @@ exit.addEventListener('click', () => {
 })
 
 /*
-Things to add:
+Things to finish:
+- top middle should say "Add task", form design: 'x' in top right corner
 - add new task/project, makes pop up form
-- Each task has: 'title', 'description', 'date created', 'optional due date', 'optional level of priority', checkbox, delete button, edit button
+- After task is created its displayed with 'title', 'description', 'date created', 'optional due date', 'optional level of priority', checkbox, delete button, edit button
 - main area that shows all the tasks
+- different tabs/projects that tasks can move between
 */
