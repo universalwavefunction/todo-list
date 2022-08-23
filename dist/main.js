@@ -1,0 +1,1 @@
+(()=>{const e=document.getElementById("new-task"),t=document.getElementById("exit"),n=document.getElementById("task-form");e.addEventListener("click",(()=>{n.style.display="flex"})),t.addEventListener("click",(()=>{n.style.display="none"}))})();
