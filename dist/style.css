@@ -32,7 +32,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #F5F5F5;
+  background-color: #808679;
   width: 100%;
   border-radius: 10px 10px 0 0;
 }
@@ -40,6 +40,21 @@ header {
 .header-text, #exit {
   padding-left: 20px;
   padding-right: 20px;
+  color: white;
+}
+
+#form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.center-submit {
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
