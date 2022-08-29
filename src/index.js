@@ -1,14 +1,28 @@
-const newTask = document.getElementById('new-task')
+import {loadAll} from "./all";
+import {tasks,addTask, myTasks,taskInfo} from "./newtask"
+
+const createTask = document.getElementById('new-task')
 const exit = document.getElementById('exit')
 const newTaskForm = document.getElementById('task-form')
+const rightSide = document.getElementById('right-side')
 
-newTask.addEventListener('click', () => {
+createTask.addEventListener('click', () => {
   newTaskForm.style.display = 'flex';
 })
 
 exit.addEventListener('click', () => {
   newTaskForm.style.display = 'none';
 })
+
+const submit = document.getElementById('submit-task')
+submit.addEventListener('click', () => {
+  addTask()
+  console.log(taskInfo)
+})
+
+loadAll()
+
+export {rightSide}
 
 /*
 Things to finish:

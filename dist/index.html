@@ -13,29 +13,29 @@
       </div>
     </header>
     <div class="body">
-      <div id="task-form">
+      <form id="task-form" method="post">
         <div id="new-task-header">
           <h3 class="header-text">Add task</h3>
           <input type="button" value="x" id="exit">
         </div>
         <div id="form-body">
-          <input type="text" name="title" placeholder="Task">
-          <textarea rows="3" name="description" placeholder="Description" id="description"></textarea>
+          <input type="text" id="title" placeholder="Task">
+          <textarea rows="3" placeholder="Description" id="description"></textarea>
           <div class="duedate">
             <label for="duedate">Finish by:</label>
-            <input type="date" name="duedate" placeholder="Due Date">
+            <input type="date" id="duedate" name="duedate" placeholder="Due Date">
           </div>
           <div class="drop-downs">
+            <label for="type">Type:</label>
+            <select name="type" id="type" class="dropdown">
+              <option value="Task">Task</option>
+              <option value="project">Project</option>
+            </select>
             <label for="priority">Priority:</label>
-            <select name="priority" class="dropdown">
+            <select name="priority" id="priority" class="dropdown">
               <option value="urgent">Urgent</option>
               <option value="somewhat-urgent">Somewhat urgent</option>
               <option value="not-urgent">Not urgent</option>
-            </select>
-            <label for="type">Type:</label>
-            <select name="type" class="dropdown">
-              <option value="Task">Task</option>
-              <option value="project">Project</option>
             </select>
           </div>
           <div class="completed-task">
@@ -43,10 +43,10 @@
             <input type="checkbox" name="read" value="yes" id="completed">
           </div>
           <div class="center-submit">
-            <input type="submit" value="Submit" id="submit-task">
+            <input type="button" value="Submit" id="submit-task">
           </div>
         </div>
-      </div>
+      </form>
       <div class="left-side">
         <button class="side-button" id="all">All</button>
         <button class="side-button" id="today">Today</button>
@@ -55,7 +55,7 @@
         <button class="side-button" id="projects">Projects</button>
         <button class="side-button" id="new-task">+</button>
       </div>
-      <div class="right-side">
+      <div id="right-side">
         <script src="main.js" charset="utf-8"></script>
       </div>
     </div>
