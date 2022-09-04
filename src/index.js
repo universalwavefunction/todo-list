@@ -1,7 +1,6 @@
 import {tasks} from './newtask';
 
 const myTasks = [];
-const taskInfo = [];
 
 const createTask = document.getElementById('new-task');
 const exit = document.getElementById('exit');
@@ -36,11 +35,10 @@ allTasks.addEventListener('click', () => {
 })
 
 
-export {myTasks,taskInfo,newTaskForm,formContainer,rightSide};
+export {myTasks,newTaskForm,formContainer,rightSide};
 
 /*
 Things to finish:
-- make side tabs functional and include by date/type
 - add back end storage
 - move task to bottom on completion, put a line through it
 - require title and other info inputs

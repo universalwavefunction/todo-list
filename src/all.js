@@ -1,0 +1,4 @@
+
+const displayAllTasks = () => {
+  taskDisplay()
+}
