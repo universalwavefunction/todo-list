@@ -5,8 +5,8 @@ let displayType = "all";
 let count = -1;
 
 const tasks = () => {
-  const task = (title, description, duedate, type, priority, completed, position, checked, display, id) => {
-    return {title,description,duedate,type,priority,completed,position,checked,display, id}
+  const task = (title, description, duedate, type, priority, completed, position, checked, display, id, taskClass) => {
+    return {title,description,duedate,type,priority,completed,position,checked,display, id, taskClass}
   }
 
   const addTask = () => {
@@ -17,9 +17,11 @@ const tasks = () => {
 
     if (newTask.completed == true) {
       newTask.checked = "checked";
+      newTask.taskClass = "completed-task"
     }
     else if (newTask.completed == false) {
       newTask.checked = ""
+      newTask.taskClass = "task-container"
     }
 
     myTasks.push(newTask);
@@ -30,7 +32,14 @@ const tasks = () => {
     newTask.id = "task-container-" + count;
 
     updateTaskDisplay();
+  }
 
+  const updateTaskDisplay = () => {
+    for (var i=0;i<myTasks.length;i++) {
+      myTasks[i].display = "<div class='" + myTasks[i].taskClass + "' id='" + myTasks[i].id + "'>" + "<div id='newtask-completed'>" + "<input type='checkbox' id='toggle'" + myTasks[i].checked + ">"
+      + myTasks[i].title + "</div>" + "<button id='details'>" + "details" + "</button>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
+      + "</div>" + "<button id='delete'>" + 'x' + "</button>" + "</div>"
+    }
     if (displayType == "today") {
       displayTodayTasks();}
 
@@ -38,17 +47,11 @@ const tasks = () => {
       displayAllTasks();}
   }
 
-  const updateTaskDisplay = () => {
-    for (var i=0;i<myTasks.length;i++) {
-      myTasks[i].display = "<div class='task-container' id='" + myTasks[i].id + "'>" + "<div id='newtask-completed'>" + "<input type='checkbox' id='toggle'" + myTasks[i].checked + ">"
-      + myTasks[i].title + "</div>" + "<button id='details'>" + "details" + "</button>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
-      + "</div>" + "<button id='delete'>" + 'x' + "</button>" + "</div>"
-  }}
-
   const displayAllTasks = () => {
     rightSide.innerHTML = "";
     for (var i=0;i<myTasks.length;i++) {
       rightSide.innerHTML += myTasks[i].display
+      console.log(myTasks[i])
     }
     toggleCheck();
     removeTask();
@@ -59,6 +62,7 @@ const tasks = () => {
     for (var i=0;i<myTasks.length;i++) {
       if (myTasks[i].duedate == today) {
         rightSide.innerHTML += myTasks[i].display
+        console.log(myTasks[i])
     }}
     toggleCheck();
     removeTask();
@@ -71,12 +75,12 @@ const tasks = () => {
         myTasks[i].completed = !myTasks[i].completed
         if (myTasks[i].checked == "checked") {
           myTasks[i].checked = "";
-          document.querySelector("#" + myTasks[i].id).style.color="black";
+          myTasks[i].taskClass = "task-container"
           updateTaskDisplay();
         }
         else {
           myTasks[i].checked = "checked";
-          document.querySelector("#" + myTasks[i].id).style.color="#D3D3D3";
+          myTasks[i].taskClass = "completed-task"
           updateTaskDisplay();}
     })})}
 

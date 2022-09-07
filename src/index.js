@@ -41,7 +41,6 @@ export {myTasks,newTaskForm,formContainer,rightSide};
 
 /*
 Things to finish:
-- move task to bottom on completion, put a line through it
 - require title and other info inputs
 - edit button for each task
 - make projects work & week/month?
