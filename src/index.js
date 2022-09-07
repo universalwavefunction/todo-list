@@ -1,4 +1,4 @@
-import {tasks} from './newtask';
+import {tasks, displayType} from './newtask';
 
 const myTasks = [];
 
@@ -28,10 +28,12 @@ submit.addEventListener('click', () => {
 
 todayTasks.addEventListener('click', () => {
   tasks().displayTodayTasks()
+  displayType = "today"
 })
 
 allTasks.addEventListener('click', () => {
-  tasks().taskDisplay()
+  tasks().displayAllTasks()
+  displayType = "all"
 })
 
 
@@ -39,10 +41,11 @@ export {myTasks,newTaskForm,formContainer,rightSide};
 
 /*
 Things to finish:
-- add back end storage
 - move task to bottom on completion, put a line through it
 - require title and other info inputs
 - edit button for each task
+- make projects work & week/month?
+- add back end storage
 - sort by date, completed, priority
 - details button shows details on click (either pop up or expands)
 */
