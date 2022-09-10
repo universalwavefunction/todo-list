@@ -5,15 +5,15 @@ let displayType = "all";
 let count = -1;
 
 const tasks = () => {
-  const task = (title, description, duedate, type, priority, completed, position, checked, display, id, taskClass) => {
-    return {title,description,duedate,type,priority,completed,position,checked,display, id, taskClass}
+  const task = (title, description, duedate, type, priority, completed, position, editing, checked, display, id, taskClass) => {
+    return {title,description,duedate,type,priority,completed,position,editing,checked,display,id,taskClass}
   }
 
   const addTask = () => {
     const newTask = task(document.getElementById("title").value,
     document.getElementById("description").value, document.getElementById("duedate").value,
     document.getElementById("type").value, document.getElementById('priority').value,
-    document.getElementById("completed").checked, myTasks.length);
+    document.getElementById("completed").checked, myTasks.length, true);
 
     if (newTask.completed == true) {
       newTask.checked = "checked";
@@ -31,13 +31,14 @@ const tasks = () => {
     count += 1;
     newTask.id = "task-container-" + count;
 
+    console.log(newTask.title)
     updateTaskDisplay();
   }
 
   const updateTaskDisplay = () => {
     for (var i=0;i<myTasks.length;i++) {
       myTasks[i].display = "<div class='" + myTasks[i].taskClass + "' id='" + myTasks[i].id + "'>" + "<div id='newtask-completed'>" + "<input type='checkbox' id='toggle'" + myTasks[i].checked + ">"
-      + myTasks[i].title + "</div>" + "<button id='details'>" + "details" + "</button>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
+      + myTasks[i].title + "</div>" + "<button id='edit'>" + "edit" + "</button>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
       + "</div>" + "<button id='delete'>" + 'x' + "</button>" + "</div>"
     }
     if (displayType == "today") {
@@ -54,6 +55,7 @@ const tasks = () => {
       console.log(myTasks[i])
     }
     toggleCheck();
+    editTask();
     removeTask();
   }
 
@@ -65,6 +67,7 @@ const tasks = () => {
         console.log(myTasks[i])
     }}
     toggleCheck();
+    editTask();
     removeTask();
 }
 
@@ -84,6 +87,27 @@ const tasks = () => {
           updateTaskDisplay();}
     })})}
 
+  const editTask = () => {
+    var edit = document.querySelectorAll("#edit")
+    edit.forEach((editButton, i) => {
+      editButton.addEventListener("click", () => {
+        if (myTasks[i].editing) {
+          myTasks[i].title = `<input type='text' id='edit-title-${i}' size='15' value=${myTasks[i].title}>`
+          myTasks[i].duedate = `<input type='date' id='edit-date-${i}' min=${today} value=${myTasks[i].duedate}>`
+          updateTaskDisplay();
+          myTasks[i].editing = false;
+        }
+        else if (!myTasks[i].editing) {
+          let editTitle = document.getElementById('edit-title-'+i)
+          let editDate = document.getElementById('edit-date-'+i)
+          myTasks[i].title = editTitle.value;
+          myTasks[i].duedate = editDate.value;
+          updateTaskDisplay();
+          myTasks[i].editing = true;
+        }
+      })
+  })}
+
   const removeTask = () => {
     var exit = document.querySelectorAll("#delete")
     exit.forEach((x, i) => {
@@ -98,4 +122,4 @@ const tasks = () => {
   return {tasks, task, addTask, displayAllTasks, displayTodayTasks}
 }
 
-export {tasks, displayType};
+export {tasks, today, displayType};

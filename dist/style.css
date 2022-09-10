@@ -50,7 +50,7 @@ header {
 #newtask-duedate, #newtask-completed {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
-  width: 100px;
+  width: 250px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
@@ -68,8 +68,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  background: #000;
-  opacity: 0.8;
+  background: rgba(0,0,0,0.5);
   z-index: 998;
   height: 100%;
   width: 100%;
@@ -179,7 +178,7 @@ body {
   font-weight: bolder;
 }
 
-#exit, #add-task, #details, #delete {
+#exit, #add-task, #edit, #delete {
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;

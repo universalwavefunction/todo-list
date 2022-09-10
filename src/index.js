@@ -1,16 +1,18 @@
-import {tasks, displayType} from './newtask';
+import {tasks, displayType, today} from './newtask';
+import {openTaskForm} from './task-form';
 
 const myTasks = [];
+
+const formContainer = document.getElementById('form-container');
+openTaskForm()
 
 const createTask = document.getElementById('new-task');
 const exit = document.getElementById('exit');
 const newTaskForm = document.getElementById('task-form');
 const rightSide = document.getElementById('task-container');
 const submit = document.getElementById('submit-task');
-const formContainer = document.getElementById('form-container');
 const todayTasks = document.getElementById('today');
 const allTasks = document.getElementById('all');
-
 
 createTask.addEventListener('click', () => {
   newTaskForm.style.display = 'flex';
@@ -39,10 +41,11 @@ allTasks.addEventListener('click', () => {
 
 export {myTasks,newTaskForm,formContainer,rightSide};
 
+
+
 /*
 Things to finish:
 - require title and other info inputs
-- edit button for each task
 - make projects work & week/month?
 - add back end storage
 - sort by date, completed, priority
