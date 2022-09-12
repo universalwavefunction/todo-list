@@ -1,10 +1,7 @@
-import {tasks, displayType, today} from './newtask';
-import {openTaskForm} from './task-form';
+import {tasks, today} from './newtask';
+//import {openTaskForm} from './task-form';
 
 const myTasks = [];
-
-const formContainer = document.getElementById('form-container');
-openTaskForm()
 
 const createTask = document.getElementById('new-task');
 const exit = document.getElementById('exit');
@@ -13,18 +10,12 @@ const rightSide = document.getElementById('task-container');
 const submit = document.getElementById('submit-task');
 const todayTasks = document.getElementById('today');
 const allTasks = document.getElementById('all');
+const projects = document.getElementById('projects');
+const createProject = document.getElementById('new-project');
+
+let displayType = "all";
 
 createTask.addEventListener('click', () => {
-  newTaskForm.style.display = 'flex';
-  formContainer.style.display = 'flex';
-});
-
-exit.addEventListener('click', () => {
-  newTaskForm.style.display = 'none';
-  formContainer.style.display = 'none';
-});
-
-submit.addEventListener('click', () => {
   tasks().addTask()
 });
 
@@ -39,15 +30,12 @@ allTasks.addEventListener('click', () => {
 })
 
 
-export {myTasks,newTaskForm,formContainer,rightSide};
+export {myTasks,newTaskForm,rightSide,projects,displayType};
 
 
-
-/*
-Things to finish:
-- require title and other info inputs
-- make projects work & week/month?
-- add back end storage
-- sort by date, completed, priority
-- details button shows details on click (either pop up or expands)
+/* Future Features:
+- make projects functional
+- back end storage
+- add week + month buttons
+- sort by date/completed
 */

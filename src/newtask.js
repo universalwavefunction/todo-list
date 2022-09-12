@@ -1,19 +1,16 @@
-import {myTasks,newTaskForm,formContainer,rightSide} from './index';
+import {myTasks,newTaskForm,rightSide,projects,displayType} from './index';
 
 const today = new Date().toLocaleDateString('en-ca');
-let displayType = "all";
-let count = -1;
+let count = 0;
 
 const tasks = () => {
-  const task = (title, description, duedate, type, priority, completed, position, editing, checked, display, id, taskClass) => {
-    return {title,description,duedate,type,priority,completed,position,editing,checked,display,id,taskClass}
+  const task = (title, duedate, completed, position, editing, checked, display, id, taskClass) => {
+    return {title,duedate,completed,position,editing,checked,display,id,taskClass}
   }
 
   const addTask = () => {
-    const newTask = task(document.getElementById("title").value,
-    document.getElementById("description").value, document.getElementById("duedate").value,
-    document.getElementById("type").value, document.getElementById('priority').value,
-    document.getElementById("completed").checked, myTasks.length, true);
+    const newTask = task(`<input type="text" id="edit-title-${count}" placeholder="Task" required>`,
+    `<input type="date" id="edit-date-${count}" name="duedate" min="${today}">`, false, count, false);
 
     if (newTask.completed == true) {
       newTask.checked = "checked";
@@ -24,22 +21,22 @@ const tasks = () => {
       newTask.taskClass = "task-container"
     }
 
-    myTasks.push(newTask);
-    newTaskForm.reset()
-    newTaskForm.style.display = 'none';
-    formContainer.style.display = 'none';
-    count += 1;
-    newTask.id = "task-container-" + count;
+    if (displayType == "today") {
+      newTask.duedate = `<input type="date" id="edit-date-${count}" name="duedate" min="${today}" value="${today}">`;
+    }
 
-    console.log(newTask.title)
+    myTasks.push(newTask);
+
+    newTask.id = "task-container-" + count;
+    count += 1;
     updateTaskDisplay();
   }
 
   const updateTaskDisplay = () => {
     for (var i=0;i<myTasks.length;i++) {
       myTasks[i].display = "<div class='" + myTasks[i].taskClass + "' id='" + myTasks[i].id + "'>" + "<div id='newtask-completed'>" + "<input type='checkbox' id='toggle'" + myTasks[i].checked + ">"
-      + myTasks[i].title + "</div>" + "<button id='edit'>" + "edit" + "</button>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
-      + "</div>" + "<button id='delete'>" + 'x' + "</button>" + "</div>"
+      + myTasks[i].title + "</div>" + "<div id='newtask-duedate'>" + myTasks[i].duedate
+      + "</div>" + "<div class='buttons'>" + "<button id='edit'>" + `<img src="edit-button.svg" alt="Edit" height="12px">` + "</button>" + "<button id='delete'>" + 'x' + "</button>" + "</div>" + "</div>"
     }
     if (displayType == "today") {
       displayTodayTasks();}
@@ -52,7 +49,6 @@ const tasks = () => {
     rightSide.innerHTML = "";
     for (var i=0;i<myTasks.length;i++) {
       rightSide.innerHTML += myTasks[i].display
-      console.log(myTasks[i])
     }
     toggleCheck();
     editTask();
@@ -62,17 +58,17 @@ const tasks = () => {
   const displayTodayTasks = () => {
     rightSide.innerHTML = "";
     for (var i=0;i<myTasks.length;i++) {
-      if (myTasks[i].duedate == today) {
+      if (myTasks[i].duedate == today || myTasks[i].duedate.includes(`value="${today}"`)) {
         rightSide.innerHTML += myTasks[i].display
-        console.log(myTasks[i])
     }}
     toggleCheck();
     editTask();
     removeTask();
-}
+  }
 
   const toggleCheck = () => {
-    var toggle = document.querySelectorAll('#toggle')
+    const toggle = document.querySelectorAll('#toggle')
+    console.log(toggle)
     toggle.forEach((button, i) => {
       button.addEventListener("click", () => {
         myTasks[i].completed = !myTasks[i].completed
@@ -88,18 +84,18 @@ const tasks = () => {
     })})}
 
   const editTask = () => {
-    var edit = document.querySelectorAll("#edit")
+    const edit = document.querySelectorAll("#edit")
     edit.forEach((editButton, i) => {
       editButton.addEventListener("click", () => {
         if (myTasks[i].editing) {
-          myTasks[i].title = `<input type='text' id='edit-title-${i}' size='15' value=${myTasks[i].title}>`
-          myTasks[i].duedate = `<input type='date' id='edit-date-${i}' min=${today} value=${myTasks[i].duedate}>`
+          myTasks[i].title = `<input type='text' id='edit-title-${myTasks[i].position}' size='15' value="${myTasks[i].title}">`
+          myTasks[i].duedate = `<input type='date' id='edit-date-${myTasks[i].position}' min=${today} value="${myTasks[i].duedate}">`
           updateTaskDisplay();
           myTasks[i].editing = false;
         }
         else if (!myTasks[i].editing) {
-          let editTitle = document.getElementById('edit-title-'+i)
-          let editDate = document.getElementById('edit-date-'+i)
+          let editTitle = document.getElementById(`edit-title-${myTasks[i].position}`)
+          let editDate = document.getElementById(`edit-date-${myTasks[i].position}`)
           myTasks[i].title = editTitle.value;
           myTasks[i].duedate = editDate.value;
           updateTaskDisplay();
@@ -109,8 +105,8 @@ const tasks = () => {
   })}
 
   const removeTask = () => {
-    var exit = document.querySelectorAll("#delete")
-    exit.forEach((x, i) => {
+    const del = document.querySelectorAll("#delete")
+    del.forEach((x, i) => {
       x.addEventListener("click", () => {
         myTasks.splice(i, 1)
         if (displayType=="all") {
@@ -122,4 +118,4 @@ const tasks = () => {
   return {tasks, task, addTask, displayAllTasks, displayTodayTasks}
 }
 
-export {tasks, today, displayType};
+export {tasks, today};

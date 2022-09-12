@@ -18,7 +18,7 @@ const openTaskForm = () => {
       <div class="drop-downs">
         <label for="type">Type:</label>
         <select name="type" id="type" class="dropdown" required>
-          <option value="Task">Task</option>
+          <option value="task">Task</option>
           <option value="project">Project</option>
         </select>
         <label for="priority" required>Priority:</label>
