@@ -155,7 +155,7 @@ body {
   padding-top: 20px;
 }
 
-#projects {
+#project-container {
   width: 100%;
   display: flex;
   flex-direction: column;

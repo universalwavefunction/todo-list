@@ -1,7 +1,8 @@
-import {myTasks,newTaskForm,rightSide,projects,displayType} from './index';
+import {myTasks,newTaskForm,rightSide,projectContainer,displayType} from './index';
 
 const today = new Date().toLocaleDateString('en-ca');
 let count = 0;
+let todayTasks = [];
 
 const tasks = () => {
   const task = (title, duedate, completed, position, editing, checked, display, id, taskClass) => {
@@ -57,8 +58,10 @@ const tasks = () => {
 
   const displayTodayTasks = () => {
     rightSide.innerHTML = "";
+    todayTasks = [];
     for (var i=0;i<myTasks.length;i++) {
       if (myTasks[i].duedate == today || myTasks[i].duedate.includes(`value="${today}"`)) {
+        todayTasks.push(myTasks[i])
         rightSide.innerHTML += myTasks[i].display
     }}
     toggleCheck();
@@ -68,38 +71,51 @@ const tasks = () => {
 
   const toggleCheck = () => {
     const toggle = document.querySelectorAll('#toggle')
-    console.log(toggle)
+    let toggleIndex;
     toggle.forEach((button, i) => {
       button.addEventListener("click", () => {
-        myTasks[i].completed = !myTasks[i].completed
-        if (myTasks[i].checked == "checked") {
-          myTasks[i].checked = "";
-          myTasks[i].taskClass = "task-container"
+        if (displayType == "today") {
+          toggleIndex = myTasks.indexOf(todayTasks[i]);
+        }
+        else if (displayType == "all") {
+          toggleIndex = i;
+        }
+        myTasks[toggleIndex].completed = !myTasks[toggleIndex].completed
+        if (myTasks[toggleIndex].checked == "checked") {
+          myTasks[toggleIndex].checked = "";
+          myTasks[toggleIndex].taskClass = "task-container"
           updateTaskDisplay();
         }
         else {
-          myTasks[i].checked = "checked";
-          myTasks[i].taskClass = "completed-task"
+          myTasks[toggleIndex].checked = "checked";
+          myTasks[toggleIndex].taskClass = "completed-task"
           updateTaskDisplay();}
     })})}
 
   const editTask = () => {
     const edit = document.querySelectorAll("#edit")
+    let editIndex;
     edit.forEach((editButton, i) => {
       editButton.addEventListener("click", () => {
-        if (myTasks[i].editing) {
-          myTasks[i].title = `<input type='text' id='edit-title-${myTasks[i].position}' size='15' value="${myTasks[i].title}">`
-          myTasks[i].duedate = `<input type='date' id='edit-date-${myTasks[i].position}' min=${today} value="${myTasks[i].duedate}">`
-          updateTaskDisplay();
-          myTasks[i].editing = false;
+        if (displayType == "today") {
+          editIndex = myTasks.indexOf(todayTasks[i]);
         }
-        else if (!myTasks[i].editing) {
-          let editTitle = document.getElementById(`edit-title-${myTasks[i].position}`)
-          let editDate = document.getElementById(`edit-date-${myTasks[i].position}`)
-          myTasks[i].title = editTitle.value;
-          myTasks[i].duedate = editDate.value;
+        else if (displayType == "all") {
+          editIndex = i;
+        }
+        if (myTasks[editIndex].editing) {
+          myTasks[editIndex].title = `<input type='text' id='edit-title-${myTasks[editIndex].position}' size='15' value="${myTasks[editIndex].title}">`
+          myTasks[editIndex].duedate = `<input type='date' id='edit-date-${myTasks[editIndex].position}' min=${today} value="${myTasks[editIndex].duedate}">`
           updateTaskDisplay();
-          myTasks[i].editing = true;
+          myTasks[editIndex].editing = false;
+        }
+        else if (!myTasks[editIndex].editing) {
+          let editTitle = document.getElementById(`edit-title-${myTasks[editIndex].position}`)
+          let editDate = document.getElementById(`edit-date-${myTasks[editIndex].position}`)
+          myTasks[editIndex].title = editTitle.value;
+          myTasks[editIndex].duedate = editDate.value;
+          updateTaskDisplay();
+          myTasks[editIndex].editing = true;
         }
       })
   })}
@@ -108,10 +124,12 @@ const tasks = () => {
     const del = document.querySelectorAll("#delete")
     del.forEach((x, i) => {
       x.addEventListener("click", () => {
-        myTasks.splice(i, 1)
         if (displayType=="all") {
+          myTasks.splice(i, 1)
           displayAllTasks()}
         else if (displayType=="today"){
+          myTasks.splice((myTasks.indexOf(todayTasks[i])), 1)
+          todayTasks.splice(i, 1)
           displayTodayTasks()}
     })})}
 

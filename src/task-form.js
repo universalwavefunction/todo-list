@@ -1,15 +1,14 @@
 import {today} from './newtask';
-import {formContainer} from './index';
+import {newTaskForm, exit, formContainer} from './index';
 
 const openTaskForm = () => {
-  formContainer.innerHTML = `
-  <form id="task-form" method="post">
+  newTaskForm.innerHTML = `
     <div id="new-task-header">
-      <h3 class="header-text">Add task</h3>
+      <h3 class="header-text">Add Project</h3>
       <input type="button" value="x" id="exit">
     </div>
     <div id="form-body">
-      <input type="text" id="title" placeholder="Task" required>
+      <input type="text" id="title" placeholder="Project" required>
       <textarea rows="3" placeholder="Description" id="description"></textarea>
       <div class="duedate">
         <label for="duedate">Finish by:</label>
@@ -18,7 +17,6 @@ const openTaskForm = () => {
       <div class="drop-downs">
         <label for="type">Type:</label>
         <select name="type" id="type" class="dropdown" required>
-          <option value="task">Task</option>
           <option value="project">Project</option>
         </select>
         <label for="priority" required>Priority:</label>
@@ -35,8 +33,7 @@ const openTaskForm = () => {
       <div class="center-submit">
         <input type="button" value="Submit" id="submit-task">
       </div>
-    </div>
-  </form>`
+    </div>`
 }
 
 export {openTaskForm}
