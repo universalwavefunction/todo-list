@@ -1,4 +1,4 @@
-import {myTasks,newTaskForm,rightSide,projectContainer,displayType} from './index';
+import {myTasks,newTaskForm,rightSide,projectContainer,displayType,todayTasksButton,allTasksButton,sideButtons} from './index';
 
 const today = new Date().toLocaleDateString('en-ca');
 let count = 0;
@@ -47,6 +47,9 @@ const tasks = () => {
   }
 
   const displayAllTasks = () => {
+    for (var i=0;i<sideButtons.length;i++) {
+      sideButtons[i].style.backgroundColor = "transparent"}
+    allTasksButton.style.backgroundColor = "#deffd1"
     rightSide.innerHTML = "";
     for (var i=0;i<myTasks.length;i++) {
       rightSide.innerHTML += myTasks[i].display
@@ -57,6 +60,9 @@ const tasks = () => {
   }
 
   const displayTodayTasks = () => {
+    for (var i=0;i<sideButtons.length;i++) {
+      sideButtons[i].style.backgroundColor = "transparent"}
+    todayTasksButton.style.backgroundColor = "#deffd1"
     rightSide.innerHTML = "";
     todayTasks = [];
     for (var i=0;i<myTasks.length;i++) {
