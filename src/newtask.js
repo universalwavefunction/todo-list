@@ -9,28 +9,47 @@ const tasks = () => {
     return {title,duedate,completed,position,editing,checked,display,id,taskClass}
   }
 
+
   const addTask = () => {
-    const newTask = task(`<input type="text" id="edit-title-${count}" placeholder="Task" required>`,
-    `<input type="date" id="edit-date-${count}" name="duedate" min="${today}">`, false, count, false);
+    if (myTasks.length == 0 || myTasks[myTasks.length - 1].editing == true) {
+      const newTask = task(`<input type="text" id="edit-title-${count}" placeholder="Task" required>`,
+      `<input type="date" id="edit-date-${count}" name="duedate" min="${today}">`, false, count, false);
 
-    if (newTask.completed == true) {
-      newTask.checked = "checked";
-      newTask.taskClass = "completed-task"
+      if (newTask.completed == true) {
+        newTask.checked = "checked";
+        newTask.taskClass = "completed-task"
+      }
+      else if (newTask.completed == false) {
+        newTask.checked = ""
+        newTask.taskClass = "task-container"
+      }
+
+      if (displayType == "today") {
+        newTask.duedate = `<input type="date" id="edit-date-${count}" name="duedate" min="${today}" value="${today}">`;
+      }
+
+      myTasks.push(newTask);
+
+      newTask.id = "task-container-" + count;
+      count += 1;
+      updateTaskDisplay();
     }
-    else if (newTask.completed == false) {
-      newTask.checked = ""
-      newTask.taskClass = "task-container"
-    }
-
-    if (displayType == "today") {
-      newTask.duedate = `<input type="date" id="edit-date-${count}" name="duedate" min="${today}" value="${today}">`;
-    }
-
-    myTasks.push(newTask);
-
-    newTask.id = "task-container-" + count;
-    count += 1;
-    updateTaskDisplay();
+    else if (myTasks[myTasks.length - 1].editing == false) {
+      let editIndex;
+//can be cleaned up:
+      if (displayType == "today") {
+        editIndex = myTasks.indexOf(todayTasks[todayTasks.length - 1]);
+      }
+      else if (displayType == "all") {
+        editIndex = myTasks.length - 1;
+      }
+      let editTitle = document.getElementById(`edit-title-${myTasks[editIndex].position}`)
+      let editDate = document.getElementById(`edit-date-${myTasks[editIndex].position}`)
+      myTasks[editIndex].title = editTitle.value;
+      myTasks[editIndex].duedate = editDate.value;
+      updateTaskDisplay();
+      myTasks[editIndex].editing = true;
+    };
   }
 
   const updateTaskDisplay = () => {

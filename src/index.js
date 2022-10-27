@@ -35,6 +35,7 @@ allTasksButton.addEventListener('click', () => {
 
 createProject.addEventListener('click', () => {
   projects().addProject()
+  displayType = "project"
 })
 
 
