@@ -155,15 +155,22 @@ body {
   padding-top: 20px;
 }
 
-#project-container {
+
+.project-container {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: space-between;
 }
+
 
 #project-container:empty {
 display: none;
+}
+
+#project-button {
+  width: 100%;
 }
 
 .side-button {
@@ -196,7 +203,7 @@ display: none;
   gap: 5px;
 }
 
-#exit, #add-task, #edit, #delete {
+#exit, #add-task, #edit, #delete, #edit-project, #delete-project {
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;

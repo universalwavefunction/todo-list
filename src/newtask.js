@@ -1,4 +1,5 @@
 import {myTasks,newTaskForm,rightSide,projectContainer,displayType,todayTasksButton,allTasksButton,sideButtons} from './index';
+import {projects, myProjects} from './projects';
 
 const today = new Date().toLocaleDateString('en-ca');
 let count = 0;

@@ -1,12 +1,12 @@
-import {projectContainer, rightSide, displayType} from './index';
+import {projectContainer, rightSide, displayType, sideButtons} from './index';
 import {today} from './newtask'
 
 let myProjects = [];
 let projectCount = 0;
 
 const projects = () => {
-  const project = (title, duedate, completed, position, editing, checked, display, id, projectClass, displayType) => {
-    return {title,duedate,completed,position,editing,checked,display,id,projectClass,displayType}
+  const project = (title, duedate, completed, position, editing, checked, display, id, projectClass, displayType, projectTasks) => {
+    return {title,duedate,completed,position,editing,checked,display,id,projectClass,displayType,projectTasks}
   }
 
   const addProject = () => {
@@ -22,6 +22,7 @@ const projects = () => {
       newProject.projectClass = "project-container"
     }
 
+    newProject.projectTasks = []
     newProject.id = "project-container-" + projectCount;
     newProject.displayType = "project" + projectCount;
 
@@ -34,15 +35,14 @@ const projects = () => {
   const updateProjectDisplay = () => {
     projectContainer.innerHTML = "";
     for (var i=0;i<myProjects.length;i++) {
-      myProjects[i].display = "<div class='" + myProjects[i].projectClass + "' id='" + myProjects[i].id + "'>" + '<button>' + myProjects[i].title + '</button>' + "</div>"
+      myProjects[i].display = "<div class='" + myProjects[i].projectClass + "' id='" + myProjects[i].id + "'>" + '<div>' + myProjects[i].title + '</div>'
       + "<div class='buttons'>" + "<button id='edit-project'>" + `<img src="edit-button.svg" alt="Edit" height="12px">` + "</button>" + "<button id='delete-project'>" + 'x' + "</button>" + "</div>" + "</div>"
 
       projectContainer.innerHTML += myProjects[i].display;
-      rightSide.innerHTML = "";
-      rightSide.innerHTML += myProjects[i].display;
     }
     editProject()
     removeProject()
+    clickProject()
   }
 
   const editProject = () => {
@@ -50,13 +50,13 @@ const projects = () => {
     projectEditButtons.forEach((editButton, i) => {
       editButton.addEventListener("click", () => {
         if (myProjects[i].editing) {
-          myProjects[i].title = `<input type='text' id='edit-project-${myProjects[i].position}' size='10' value="${myProjects[i].title}">`
+          myProjects[i].title = `<input type='text' class='editing-project' id='edit-project-${myProjects[i].position}'>`
           updateProjectDisplay();
           myProjects[i].editing = false;
         }
         else if (!myProjects[i].editing) {
           let editProjectTitle = document.getElementById(`edit-project-${myProjects[i].position}`);
-          myProjects[i].title = editProjectTitle.value;
+          myProjects[i].title = "<button id='project-button' class='side-button'>" + editProjectTitle.value + "</button>";
           updateProjectDisplay();
           myProjects[i].editing = true;
         }
@@ -71,7 +71,30 @@ const projects = () => {
           updateProjectDisplay();
     })})}
 
+  const clickProject = () => {
+    const projButton = document.querySelectorAll("#project-button")
+    projButton.forEach((button,i) => {
+      button.addEventListener("click", () => {
+        for (var i=0;i<sideButtons.length;i++) {
+          sideButtons[i].style.backgroundColor = "transparent"}
+        button.style.backgroundColor = "#deffd1"
+        //displayType = myProjects[i].displayType;
+        rightSide.innerHTML = "";
+        rightSide.innerHTML += button.innerText + '<br>';
+        updateProjectDisplay();
+      })
+    })
+  }
+
   return {projects, project, addProject, updateProjectDisplay, editProject, removeProject}
 }
 
-export {projects}
+export {projects, myProjects}
+
+/*
+call addTask, if displayType is not == today || all, then
+add tasks to new project array. With tag for project id,
+when clickProject display tasks in array with specific project id
+
+- 3 dots to open project edit/delete
+*/
