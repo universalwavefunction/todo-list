@@ -1,4 +1,0 @@
-
-const displayAllTasks = () => {
-  taskDisplay()
-}
