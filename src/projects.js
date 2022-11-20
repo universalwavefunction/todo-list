@@ -42,10 +42,10 @@ const projects = () => {
       false
     );
 
-    if (newProject.completed == true) {
+    if (newProject.completed === true) {
       newProject.checked = "checked";
       newProject.projectClass = "completed-project";
-    } else if (newProject.completed == false) {
+    } else if (newProject.completed === false) {
       newProject.checked = "";
       newProject.projectClass = "project-container";
     }
