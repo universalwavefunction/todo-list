@@ -203,7 +203,7 @@ display: none;
   gap: 5px;
 }
 
-#exit, #add-task, #edit, #delete, #edit-project, #delete-project {
+#exit, #add-task, #edit, #delete, #open-buttons, #edit-project, #delete-project {
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;

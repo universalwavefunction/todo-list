@@ -40,7 +40,7 @@ const tasks = () => {
   };
 
   const addTask = () => {
-    if (myTasks.length == 0 || myTasks[myTasks.length - 1].editing == true) {
+    if (myTasks.length === 0 || myTasks[myTasks.length - 1].editing === true) {
       const newTask = task(
         `<input type="text" id="edit-title-${count}" placeholder="Task" required>`,
         `<input type="date" id="edit-date-${count}" name="duedate" min="${today}">`,
@@ -49,15 +49,15 @@ const tasks = () => {
         false
       );
 
-      if (newTask.completed == true) {
+      if (newTask.completed === true) {
         newTask.checked = "checked";
         newTask.taskClass = "completed-task";
-      } else if (newTask.completed == false) {
+      } else if (newTask.completed === false) {
         newTask.checked = "";
         newTask.taskClass = "task-container";
       }
 
-      if (displayType == "today") {
+      if (displayType === "today") {
         newTask.duedate = `<input type="date" id="edit-date-${count}" name="duedate" min="${today}" value="${today}">`;
       }
 
@@ -66,12 +66,12 @@ const tasks = () => {
       newTask.id = "task-container-" + count;
       count += 1;
       updateTaskDisplay();
-    } else if (myTasks[myTasks.length - 1].editing == false) {
+    } else if (myTasks[myTasks.length - 1].editing === false) {
       let editIndex;
       // can be cleaned up:
-      if (displayType == "today") {
+      if (displayType === "today") {
         editIndex = myTasks.indexOf(todayTasks[todayTasks.length - 1]);
-      } else if (displayType == "all") {
+      } else if (displayType === "all") {
         editIndex = myTasks.length - 1;
       }
       const editTitle = document.getElementById(
@@ -114,20 +114,20 @@ const tasks = () => {
         "</div>" +
         "</div>";
     }
-    if (displayType == "today") {
+    if (displayType === "today") {
       displayTodayTasks();
-    } else if (displayType == "all") {
+    } else if (displayType === "all") {
       displayAllTasks();
     }
   };
 
   const displayAllTasks = () => {
-    for (var i = 0; i < sideButtons.length; i++) {
+    for (let i = 0; i < sideButtons.length; i++) {
       sideButtons[i].style.backgroundColor = "transparent";
     }
     allTasksButton.style.backgroundColor = "#deffd1";
     rightSide.innerHTML = "";
-    for (var i = 0; i < myTasks.length; i++) {
+    for (let i = 0; i < myTasks.length; i++) {
       rightSide.innerHTML += myTasks[i].display;
     }
     toggleCheck();
@@ -136,15 +136,15 @@ const tasks = () => {
   };
 
   const displayTodayTasks = () => {
-    for (var i = 0; i < sideButtons.length; i++) {
+    for (let i = 0; i < sideButtons.length; i++) {
       sideButtons[i].style.backgroundColor = "transparent";
     }
     todayTasksButton.style.backgroundColor = "#deffd1";
     rightSide.innerHTML = "";
     todayTasks = [];
-    for (var i = 0; i < myTasks.length; i++) {
+    for (let i = 0; i < myTasks.length; i++) {
       if (
-        myTasks[i].duedate == today ||
+        myTasks[i].duedate === today ||
         myTasks[i].duedate.includes(`value="${today}"`)
       ) {
         todayTasks.push(myTasks[i]);
@@ -161,13 +161,13 @@ const tasks = () => {
     let toggleIndex;
     toggle.forEach((button, i) => {
       button.addEventListener("click", () => {
-        if (displayType == "today") {
+        if (displayType === "today") {
           toggleIndex = myTasks.indexOf(todayTasks[i]);
-        } else if (displayType == "all") {
+        } else if (displayType === "all") {
           toggleIndex = i;
         }
         myTasks[toggleIndex].completed = !myTasks[toggleIndex].completed;
-        if (myTasks[toggleIndex].checked == "checked") {
+        if (myTasks[toggleIndex].checked === "checked") {
           myTasks[toggleIndex].checked = "";
           myTasks[toggleIndex].taskClass = "task-container";
           updateTaskDisplay();
@@ -185,9 +185,9 @@ const tasks = () => {
     let editIndex;
     edit.forEach((editButton, i) => {
       editButton.addEventListener("click", () => {
-        if (displayType == "today") {
+        if (displayType === "today") {
           editIndex = myTasks.indexOf(todayTasks[i]);
-        } else if (displayType == "all") {
+        } else if (displayType === "all") {
           editIndex = i;
         }
         if (myTasks[editIndex].editing) {
@@ -219,10 +219,10 @@ const tasks = () => {
     const del = document.querySelectorAll("#delete");
     del.forEach((x, i) => {
       x.addEventListener("click", () => {
-        if (displayType == "all") {
+        if (displayType === "all") {
           myTasks.splice(i, 1);
           displayAllTasks();
-        } else if (displayType == "today") {
+        } else if (displayType === "today") {
           myTasks.splice(myTasks.indexOf(todayTasks[i]), 1);
           todayTasks.splice(i, 1);
           displayTodayTasks();
